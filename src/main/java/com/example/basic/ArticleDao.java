@@ -2,10 +2,14 @@ package com.example.basic;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 // MyBatis가 JDBC작업을 대신 해줌
 public interface ArticleDao {
+
     @Insert("""
             INSERT INTO article2
             SET title = #{title}
@@ -16,4 +20,8 @@ public interface ArticleDao {
     // 주의할 점 매개변수와 변수로 지정한 이름이 같아야한다.
     void save(String title, String body);
 
+    @Select("""
+            SELECT * FROM article2
+            """)
+    List<Article> findAll();
 }

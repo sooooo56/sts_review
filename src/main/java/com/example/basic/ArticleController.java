@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 // Lombok으로 스프링에서 DI(의존성 주입)의 방법 중에 생성자 주입을 임의의 코드없이 자동으로 설정해주는 어노테이션이다.
@@ -14,6 +16,7 @@ public class ArticleController {
     private final ArticleDao articleDao;
     // 캡슐화를 위해 private 붙이기
 
+    // 작성
     @RequestMapping("/article/write")
     @ResponseBody
     public String save(String title, String body) { // 쿼리스트링으로 저장하는 방법
@@ -21,4 +24,14 @@ public class ArticleController {
 
         return "게시물이 성공적으로 저장되었습니다";
     }
+
+    // 리스트
+    @RequestMapping("/article/list")
+    @ResponseBody
+    public List<Article> list(){
+        List<Article> articleList = articleDao.findAll();
+
+        return articleList;
+    }
+
 }
